@@ -1,0 +1,4 @@
+time,column6,column7,column1,column2,column3,column4,column5
+1970-01-01T00:00:00.000000100,beijing,shanghai,-1234,hello,1234,false,1.2
+1970-01-01T00:00:00.000000103,beijing,shanghai,-1234,hello,1234,false,1.2
+1970-01-01T00:00:00.000000104,beijing,shanghai,-1234,hello,1234,false,1.2
