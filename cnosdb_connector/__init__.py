@@ -6,7 +6,7 @@ def connect(**kwargs) -> CnosDBConnection:
     Keyword Arguments
     ========================================================================
     url: str
-        optional, default_value: "http://127.0.0.1:31001/"
+        optional, default_value: "http://127.0.0.1:31007/"
         description: the url to connect db server
 
     database: str

@@ -15,7 +15,7 @@ error_msgs = {
 
 
 class Client:
-    def __init__(self, url: str = "http://localhost:31001/",
+    def __init__(self, url: str = "http://localhost:31007/",
                  database: str = "public",
                  user: str = "root",
                  password: str = ""):
