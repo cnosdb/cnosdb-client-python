@@ -5,7 +5,7 @@ from .cursor import Cursor
 
 class CnosDBConnection:
     def __init__(self, **kwargs):
-        url = kwargs.get("url", "http://127.0.0.1:31001/")
+        url = kwargs.get("url", "http://127.0.0.1:31007/")
         user = kwargs.get("user", "root")
         password = kwargs.get("password", "")
         database = kwargs.get("database", "public")

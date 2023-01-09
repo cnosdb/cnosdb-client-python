@@ -23,7 +23,7 @@ import cnosdb_connector
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 resp = conn.execute("SHOW DATABASES")
 print(resp)
 ```
@@ -33,7 +33,7 @@ print(resp)
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 conn.create_database("air")
 resp = conn.list_database()
 print(resp)
@@ -44,7 +44,7 @@ print(resp)
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 cursor = conn.cursor()
 
 cursor.execute("SHOW DATABASES")
@@ -58,7 +58,7 @@ print(resp)
 import pandas as pd
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 
 resp = pd.read_sql("SHOW DATABASES", conn)
 print(resp)
@@ -73,7 +73,7 @@ line0 = "test_insert,ta=a1,tb=b1 fa=1,fb=2 1"
 line1 = "test_insert,ta=a1,tb=b1 fa=3,fb=4 2"
 line2 = "test_insert,ta=a1,tb=b1 fa=5,fb=6 3"
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 
 conn.create_database_with_ttl("test_database", "100000d")
 conn.switch_database("test_database")
@@ -89,7 +89,7 @@ print(resp)
 ```python
 from cnosdb_connector import connect
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 
 query = "insert test_insert(TIME, column1, column2, column3, column4, column5, column6, column7) values (100, -1234, 'hello', 1234, false, 1.2, 'beijing', 'shanghai'); "
 
@@ -110,7 +110,7 @@ query = "CREATE TABLE test_insert(column1 BIGINT CODEC(DELTA),\
                                   column3 DOUBLE CODEC(GORILLA),\
                                   TAGS(column4));"
 
-conn = connect(url="http://127.0.0.1:31001/", user="root", password="")
+conn = connect(url="http://127.0.0.1:31007/", user="root", password="")
 # table schema must same with csv file
 conn.execute(query)
 
