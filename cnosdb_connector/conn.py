@@ -84,7 +84,7 @@ class CnosDBConnection:
         :param database_name: the name of database to create
         :type database_name: str
         """
-        self._client.sql(f"CREATE DATABASE {database_name};")
+        return self._client.sql(f"CREATE DATABASE {database_name};")
 
     def create_database_with_ttl(self, database_name, ttl):
         """
@@ -99,7 +99,7 @@ class CnosDBConnection:
                     such as "40d", "100h", "3600m"
         :return:
         """
-        self._client.sql(f"CREATE DATABASE {database_name} WITH TTL '{ttl}';")
+        return self._client.sql(f"CREATE DATABASE {database_name} WITH TTL '{ttl}';")
 
     def create_user(self, user, password):
         """
@@ -111,7 +111,7 @@ class CnosDBConnection:
         :type password: str
         :return:
         """
-        self._client.sql(f"CREATE USER {user} WITH PASSWORD = {password}")
+        return self._client.sql(f"CREATE USER {user} WITH PASSWORD = {password}")
 
     def drop_database(self, database_name):
         """
@@ -121,7 +121,7 @@ class CnosDBConnection:
         :type database_name: str
         :return:
         """
-        self._client.sql(f"DROP DATABASE {database_name};")
+        return self._client.sql(f"DROP DATABASE {database_name};")
 
     def drop_table(self, table_name):
         """
@@ -131,7 +131,7 @@ class CnosDBConnection:
         :type table_name: str
         :return:
         """
-        self._client.sql(f"DROP TABLE {table_name};")
+        return self._client.sql(f"DROP TABLE {table_name};")
 
     def drop_user(self, user):
         """
@@ -141,7 +141,7 @@ class CnosDBConnection:
         :type user: str
         :return:
         """
-        self._client.sql(f"DROP USER {user}")
+        return self._client.sql(f"DROP USER {user}")
 
     def switch_database(self, database_name):
         """

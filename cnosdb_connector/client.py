@@ -1,9 +1,11 @@
 from base64 import b64encode
 
 import json
+import logging
 from urllib.request import urlopen, Request
+from urllib.error import HTTPError as UrlLibHTTPError
 
-from .error import HTTPError
+from .error import HTTPError, DatabaseError
 
 error_msgs = {
     400: "parameter error",
@@ -27,13 +29,18 @@ class Client:
     def sql(self, q: str) -> dict:
         _url = self._url + f"api/v1/sql?db={self._database}&pretty=true"
         request = self.build_request(url=_url, data=q)
-        response = urlopen(request)
-        self._check_status(response)
-        resp = response.read().decode('utf-8')
-        if resp == "":
+        try:
+            response = urlopen(request)
+        except UrlLibHTTPError as e:
+            logging.error(f"Invalid syntax or Object not exists, get ERROR from database : {e}")
             return {}
-        resp = json.loads(resp)
-        return resp
+        else:
+            self._check_status(response)
+            resp = response.read().decode('utf-8')
+            if resp == "":
+                return {}
+            resp = json.loads(resp)
+            return resp
 
     def line_protocol(self, lines: [str]):
         _url = self._url + f"api/v1/write?db={self._database}&pretty=true"
