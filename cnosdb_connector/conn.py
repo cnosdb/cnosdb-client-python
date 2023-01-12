@@ -182,7 +182,7 @@ class CnosDBConnection:
         :return: the database names in CnosDB
         :rtype: dict list
         """
-        self._client.sql("SHOW DATABASES")
+        return self._client.sql("SHOW DATABASES")
 
     def list_table(self):
         """
@@ -191,4 +191,4 @@ class CnosDBConnection:
         :return: the table names in database
         :rtype: dict list
         """
-        self._client.sql("SHOW TABLES")
+        return self._client.sql("SHOW TABLES")
