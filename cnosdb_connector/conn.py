@@ -1,3 +1,5 @@
+import time
+
 from .error import NotSupportedError
 from .client import Client
 from .cursor import Cursor
@@ -76,6 +78,42 @@ class CnosDBConnection:
         col_names = col_names.strip(',')
         self._client.sql(f"INSERT INTO {table}({col_names}) SELECT * FROM ___temp_external_table;")
         self._client.sql("DROP TABLE ___temp_external_table")
+
+    def write_dataframe(self, dataframe, table_name, column_names: [str]):
+        """
+        write a pandas dataframe to database
+
+        :param dataframe: the dataframe of python
+        :type dataframe: Pandas DataFrame
+
+        :param table_name: the table name of cnosdb
+        :type table_name: str
+
+        :param column_names: the column names of dataframe and table,
+                            column name must same in dataframe and table
+        :type column_names: [str]
+        """
+        columns = ''
+        for column in column_names:
+            columns += f'{column},'
+        columns = columns.strip(',')
+        if 'time' in column_names:
+            for index, row in dataframe.iterrows():
+                values = ''
+                for column in column_names:
+                    values += f"'{row[column]}',"
+                values = values.strip(',')
+                query = f"INSERT INTO {table_name}({columns}) VALUES ({values})"
+                self._client.sql(query)
+        else:
+            for index, row in dataframe.iterrows():
+                values = ''
+                for column in column_names:
+                    values += f"'{row[column]}',"
+                values = values.strip(',')
+                query = f"INSERT INTO {table_name}(time,{columns}) VALUES ({time.time_ns()},{values})"
+                print(query)
+                self._client.sql(query)
 
     def create_database(self, database_name):
         """
