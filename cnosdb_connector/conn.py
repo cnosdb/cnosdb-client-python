@@ -112,7 +112,6 @@ class CnosDBConnection:
                     values += f"'{row[column]}',"
                 values = values.strip(',')
                 query = f"INSERT INTO {table_name}(time,{columns}) VALUES ({time.time_ns()},{values})"
-                print(query)
                 self._client.sql(query)
 
     def create_database(self, database_name):
