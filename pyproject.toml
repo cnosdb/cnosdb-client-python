@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cnos-connector"
-version = "0.1.8"
+version = "0.1.9"
 description = "CnosDB Python Client"
 authors = ["Subsegment <304741833@qq.com>"]
 license = "MIT"
@@ -9,6 +9,9 @@ packages = [{include = "cnosdb_connector"}]
 
 [tool.poetry.dependencies]
 python = "^3.6"
+
+[tool.poetry.plugins."sqlalchemy.dialects"]
+"cnosdb" = "cnosdb_connector.sqlalchemy:CnosDBDialect"
 
 
 [build-system]

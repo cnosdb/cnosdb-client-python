@@ -17,17 +17,19 @@ error_msgs = {
 
 
 class Client:
-    def __init__(self, url: str = "http://localhost:31007/",
+    def __init__(self, url: str = "http://localhost:8902/",
+                 tenant: str = "cnosdb",
                  database: str = "public",
                  user: str = "root",
                  password: str = ""):
         self._url = url
+        self._tenant = tenant
         self._database = database
         self._user = user
         self._password = password
 
     def sql(self, q: str) -> dict:
-        _url = self._url + f"api/v1/sql?db={self._database}&pretty=true"
+        _url = self._url + f"api/v1/sql?db={self._database}&tenant={self._tenant}&pretty=true"
         request = self.build_request(url=_url, data=q)
         try:
             response = urlopen(request)

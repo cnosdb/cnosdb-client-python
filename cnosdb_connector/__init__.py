@@ -1,4 +1,9 @@
 from .conn import CnosDBConnection
+from .error import Error
+
+apilevel = "2.0"
+threadsafety = 1  # Threads may share the module, but not connections.
+paramstyle = "pyformat"  # Python extended format codes, e.g. ...WHERE name=%(name)s
 
 
 def connect(**kwargs) -> CnosDBConnection:
@@ -29,3 +34,8 @@ def connect(**kwargs) -> CnosDBConnection:
     ```
     """
     return CnosDBConnection(**kwargs)
+
+
+def make_cnosdb_langchain_uri(url="127.0.0.1:8902", user="root", password="", tenant="cnosdb",
+                              database="public"):
+    return f"cnosdb://{user}:{password}@{url}/api/v1/sql?tenant={tenant}&db={database}&pretty=true"

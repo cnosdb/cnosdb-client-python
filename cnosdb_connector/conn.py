@@ -7,16 +7,24 @@ from .cursor import Cursor
 
 class CnosDBConnection:
     def __init__(self, **kwargs):
-        url = kwargs.get("url", "http://127.0.0.1:31007/")
+        url = kwargs.get("url", "http://127.0.0.1:8902/")
         user = kwargs.get("user", "root")
         password = kwargs.get("password", "")
+        tenant = kwargs.get("tenant", "cnosdb")
         database = kwargs.get("database", "public")
         self._client = Client(
             url,
+            tenant,
             database,
             user,
             password,
         )
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        self.close()
 
     # close, commit, rollback, cursor are PEP249 method
     def close(self):
